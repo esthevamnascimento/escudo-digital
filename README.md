@@ -110,9 +110,3 @@ Contribuições são o que tornam a comunidade de código aberto incrível. Qual
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
 
 ---
-
-## 📧 Contato
-
-Seu Nome - [@seu_twitter](https://twitter.com/seu_twitter) - seu_email@exemplo.com
-
-Link do Projeto: [https://github.com/seu-usuario/escudo-digital](https://github.com/seu-usuario/escudo-digital)
