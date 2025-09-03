@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Escudo Digital - Painel de Impacto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .nav-link.active {
+            color: #2563eb;
+            font-weight: 700;
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .tab.active {
+            background-color: #1d4ed8;
+            color: white;
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+    <!-- Chosen Palette: Secure Blue & Neutrals -->
+    <!-- Application Structure Plan: A single-page dashboard layout was chosen to present the project's information in a dynamic and easily digestible format. The structure guides the user through a narrative: understanding the problem's severity, exploring the innovative solution, visualizing the expected social impact through data, and finally, understanding the project's sustainability. This non-linear, thematic approach with a sticky navigation bar enhances user experience and engagement, making complex information accessible and compelling, unlike a simple document conversion. Key interactions include interactive tabs for solution features and dynamic charts for impact metrics. -->
+    <!-- Visualization & Content Choices: Report Info: The Problem -> Goal: Inform/Alarm -> Viz: Infographic-style cards with icons. Interaction: None. Justification: Quickly conveys the gravity of the issue. | Report Info: The Solution -> Goal: Explain/Engage -> Viz: Interactive tabbed component. Interaction: Click to switch between features. Justification: Allows detailed exploration without cluttering the page. | Report Info: Impact Metrics (KPIs) -> Goal: Demonstrate/Convince -> Viz: Dashboard with Donut, Bar, and Radar charts. Interaction: Hover tooltips. Justification: Data visualization makes abstract goals tangible and impressive. Library: Chart.js (Canvas). | Report Info: Sustainability -> Goal: Organize/Inform -> Viz: Flowchart-style diagram. Interaction: Hover effects. Justification: Simplifies a complex business model. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-blue-700">🛡️ Escudo Digital</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#problema" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-blue-700">O Problema</a>
+                        <a href="#solucao" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-blue-700">A Solução</a>
+                        <a href="#impacto" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-blue-700">Impacto Esperado</a>
+                        <a href="#sustentabilidade" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-blue-700">Sustentabilidade</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800">Construindo Resiliência Digital Contra Golpes Online</h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">Capacitando cidadãos para navegar no mundo digital com segurança e confiança, transformando potenciais vítimas em uma primeira linha de defesa ativa.</p>
+            </div>
+        </section>
+
+        <section id="problema" class="py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-slate-800">A Ameaça Invisível: O Tamanho do Problema</h2>
+                    <p class="mt-2 text-md text-slate-500 max-w-3xl mx-auto">A proliferação de fraudes online é uma epidemia silenciosa que causa danos financeiros e emocionais devastadores, especialmente aos mais vulneráveis.</p>
+                </div>
+                <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-blue-700">Público Mais Afetado</h3>
+                        <p class="mt-2 text-sm text-slate-600">Idosos, adultos com baixa escolaridade digital e pessoas em busca de renda são desproporcionalmente impactados.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-red-600">Perdas Financeiras</h3>
+                        <p class="mt-2 text-sm text-slate-600">Roubo de economias, contração de dívidas e perda de benefícios sociais são consequências diretas.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-amber-600">Danos Psicológicos</h3>
+                        <p class="mt-2 text-sm text-slate-600">As vítimas enfrentam vergonha, ansiedade e depressão, além do trauma da violação de privacidade.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-slate-600">Exclusão Reversa</h3>
+                        <p class="mt-2 text-sm text-slate-600">O medo após um golpe afasta as vítimas de serviços digitais legítimos, aprofundando o isolamento.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solucao" class="py-16 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-slate-800">Nossa Solução: Um "Vacinador Digital"</h2>
+                    <p class="mt-2 text-md text-slate-500 max-w-3xl mx-auto">O Escudo Digital é uma plataforma de educação preventiva e defesa contra fraudes online, gratuita e acessível.</p>
+                </div>
+                <div class="mt-10 max-w-4xl mx-auto">
+                    <div class="mb-4 flex flex-wrap justify-center gap-2 border-b border-slate-200">
+                        <button class="tab active px-4 py-2 text-sm font-semibold rounded-t-lg" data-tab="simulador">Simulador de Golpes</button>
+                        <button class="tab px-4 py-2 text-sm font-semibold text-slate-500 rounded-t-lg" data-tab="verificador">Verificador Rápido</button>
+                        <button class="tab px-4 py-2 text-sm font-semibold text-slate-500 rounded-t-lg" data-tab="alertas">Alertas em Tempo Real</button>
+                        <button class="tab px-4 py-2 text-sm font-semibold text-slate-500 rounded-t-lg" data-tab="biblioteca">Biblioteca de Defesa</button>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-b-lg rounded-tr-lg min-h-[200px]">
+                        <div id="simulador" class="tab-content">
+                            <h3 class="font-bold text-lg text-blue-700">Aprenda sem Correr Riscos</h3>
+                            <p class="mt-2 text-slate-600">Interaja com simulações realistas dos golpes mais comuns (SMS falso, e-mail de prêmio, etc.) em um ambiente 100% seguro. Aprenda a identificar os sinais vermelhos na prática, desenvolvendo um olhar crítico para se proteger no mundo real.</p>
+                        </div>
+                        <div id="verificador" class="tab-content hidden">
+                            <h3 class="font-bold text-lg text-blue-700">Na Dúvida, Verifique com IA</h3>
+                            <p class="mt-2 text-slate-600 text-sm mb-4">Recebeu um link, e-mail ou mensagem suspeita? Cole o texto abaixo e nossa inteligência artificial, via Gemini, fará uma análise de risco para você.</p>
+                            <textarea id="text-to-analyze" class="w-full h-32 p-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Cole a mensagem suspeita aqui..."></textarea>
+                            <button id="analyze-button" class="mt-4 w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300 flex items-center justify-center gap-2 disabled:bg-slate-400">
+                                ✨ Analisar Mensagem
+                            </button>
+                            <div id="analysis-result-container" class="mt-4 p-4 bg-slate-100 rounded-md hidden">
+                                <div id="loader" class="text-center text-slate-600 hidden">
+                                    <p class="font-semibold animate-pulse">Analisando, por favor aguarde...</p>
+                                </div>
+                                <div id="analysis-output"></div>
+                            </div>
+                        </div>
+                        <div id="alertas" class="tab-content hidden">
+                            <h3 class="font-bold text-lg text-blue-700">Mantenha-se um Passo à Frente</h3>
+                            <p class="mt-2 text-slate-600">Receba notificações sobre novos tipos de golpes que estão circulando. Nossa equipe monitora o cenário de ameaças para te manter sempre atualizado e preparado para as táticas mais recentes dos criminosos.</p>
+                        </div>
+                        <div id="biblioteca" class="tab-content hidden">
+                            <h3 class="font-bold text-lg text-blue-700">Sua Central de Autodefesa</h3>
+                            <p class="mt-2 text-slate-600">Acesse guias simples, visuais e diretos sobre temas essenciais: como criar senhas fortes, como identificar um site falso, o que fazer se você foi vítima de um golpe, e muito mais. Conhecimento é a sua melhor defesa.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="impacto" class="py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-slate-800">Impacto Social Esperado (Meta - Ano 1)</h2>
+                    <p class="mt-2 text-md text-slate-500 max-w-3xl mx-auto">Nosso sucesso é medido pela redução de vítimas e pelo aumento da confiança digital na comunidade.</p>
+                </div>
+                <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="font-semibold text-slate-800">Adoção da Plataforma</h3>
+                        <div class="chart-container h-64 md:h-72"><canvas id="kpiAdocao"></canvas></div>
+                        <p class="text-sm text-slate-500 mt-2">Meta: 50.000 usuários ativos mensais.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="font-semibold text-slate-800">Engajamento e Aprendizado</h3>
+                        <div class="chart-container h-64 md:h-72"><canvas id="kpiEngajamento"></canvas></div>
+                        <p class="text-sm text-slate-500 mt-2">Meta: 85% de sucesso na identificação de golpes no simulador.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center md:col-span-2 lg:col-span-1">
+                        <h3 class="font-semibold text-slate-800">Aumento da Confiança Digital</h3>
+                         <div class="chart-container h-64 md:h-72"><canvas id="kpiConfianca"></canvas></div>
+                        <p class="text-sm text-slate-500 mt-2">Meta: Aumento médio de 2.5 pontos na autoavaliação de segurança.</p>
+                    </div>
+                </div>
+                 <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="font-bold text-blue-700 text-lg">Impacto Direto</h3>
+                        <p class="text-4xl font-extrabold text-slate-800 mt-2">200.000</p>
+                        <p class="text-slate-500">Verificações de segurança realizadas na plataforma.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <h3 class="font-bold text-blue-700 text-lg">Redução de Danos</h3>
+                        <p class="text-4xl font-extrabold text-slate-800 mt-2">20+</p>
+                        <p class="text-slate-500">Histórias de golpes evitados graças ao app coletadas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sustentabilidade" class="py-16 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-slate-800">Um Projeto Construído para Durar</h2>
+                    <p class="mt-2 text-md text-slate-500 max-w-3xl mx-auto">Estruturado como um Negócio Social Híbrido para garantir a gratuidade permanente ao usuário final e a longevidade da iniciativa.</p>
+                </div>
+                <div class="mt-12 grid md:grid-cols-3 gap-8 text-center">
+                    <div class="border border-slate-200 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg text-blue-700">Frente Gratuita (B2C)</h3>
+                        <p class="mt-2 text-sm text-slate-600">A plataforma será sempre gratuita para o cidadão comum, cumprindo nossa missão social, sustentada por editais e doações.</p>
+                    </div>
+                    <div class="border border-slate-200 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg text-blue-700">Frente Corporativa (B2B)</h3>
+                        <p class="mt-2 text-sm text-slate-600">Venda de serviços de valor agregado para bancos e empresas, que podem oferecer o app a seus clientes para reduzir fraudes.</p>
+                    </div>
+                    <div class="border border-slate-200 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg text-blue-700">Setor Público (B2G)</h3>
+                        <p class="mt-2 text-sm text-slate-600">Parcerias com governos para usar o app em campanhas de conscientização e como ferramenta de apoio à segurança pública.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-800 text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm">
+            <p>🛡️ Projeto Escudo Digital &copy; 2025</p>
+            <p class="mt-1 text-slate-400">Construindo um ambiente digital mais seguro para todos.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const sections = document.querySelectorAll('main section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+
+                    tabs.forEach(t => {
+                        t.classList.remove('active');
+                        t.classList.add('text-slate-500');
+                    });
+                    tab.classList.add('active');
+                    tab.classList.remove('text-slate-500');
+
+                    tabContents.forEach(content => {
+                        if (content.id === target) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            const analyzeButton = document.getElementById('analyze-button');
+            const textToAnalyze = document.getElementById('text-to-analyze');
+            const resultContainer = document.getElementById('analysis-result-container');
+            const loader = document.getElementById('loader');
+            const analysisOutput = document.getElementById('analysis-output');
+
+            const handleAnalysis = async () => {
+                const userMessage = textToAnalyze.value.trim();
+                if (!userMessage) {
+                    analysisOutput.innerHTML = `<p class="text-red-600 font-semibold">Por favor, insira uma mensagem para analisar.</p>`;
+                    resultContainer.classList.remove('hidden');
+                    return;
+                }
+
+                analyzeButton.disabled = true;
+                loader.classList.remove('hidden');
+                resultContainer.classList.remove('hidden');
+                analysisOutput.innerHTML = '';
+
+                const systemPrompt = `Você é um especialista em cibersegurança focado em identificar fraudes e golpes online. Sua tarefa é analisar a mensagem fornecida pelo usuário. Responda em português do Brasil. Sua resposta DEVE ser estruturada da seguinte forma e APENAS desta forma: comece com uma única linha contendo o veredito, formatado exatamente como 'VEREDITO: [PARECE GOLPE|SUSPEITO|PARECE SEGURO]'. Não inclua nenhuma outra frase ou explicação antes desta linha. Após o veredito, em novas linhas, forneça uma explicação clara e concisa em bullet points (usando '*') sobre por que você chegou a essa conclusão, explicando os 'sinais vermelhos' de forma simples.`;
+                const apiKey = "AIzaSyC9EPl0lfa_qWDAdeQDu3_LIVRVpdc_d38"; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                const payload = {
+                    contents: [{ parts: [{ text: userMessage }] }],
+                    systemInstruction: { parts: [{ text: systemPrompt }] },
+                };
+
+                try {
+                    let response;
+                    let retries = 3;
+                    let delay = 1000;
+                    for (let i = 0; i < retries; i++) {
+                        response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        if (response.ok) break;
+                        if (response.status === 429 || response.status >= 500) {
+                             await new Promise(res => setTimeout(res, delay));
+                             delay *= 2;
+                        } else {
+                            break;
+                        }
+                    }
+
+                    if (!response.ok) {
+                        throw new Error(`Erro na API: ${response.status} ${response.statusText}`);
+                    }
+                    
+                    const result = await response.json();
+                    const candidate = result.candidates?.[0];
+
+                    if (candidate && candidate.content?.parts?.[0]?.text) {
+                        const rawText = candidate.content.parts[0].text;
+                        const lines = rawText.split('\n');
+                        
+                        const verdictLine = lines.find(line => line.startsWith('VEREDITO:')) || '';
+                        const explanationLines = lines.filter(line => !line.startsWith('VEREDITO:') && line.trim() !== '');
+                        const explanation = explanationLines.join('<br>');
+                        
+                        let verdict = 'INDETERMINADO';
+                        let verdictColor = 'text-slate-800 bg-slate-200';
+
+                        if (verdictLine.includes('PARECE GOLPE')) {
+                            verdict = 'ALTO RISCO: PARECE GOLPE';
+                            verdictColor = 'text-red-800 bg-red-100';
+                        } else if (verdictLine.includes('SUSPEITO')) {
+                            verdict = 'MÉDIO RISCO: SUSPEITO';
+                            verdictColor = 'text-amber-800 bg-amber-100';
+                        } else if (verdictLine.includes('PARECE SEGURO')) {
+                            verdict = 'BAIXO RISCO: PARECE SEGURO';
+                            verdictColor = 'text-green-800 bg-green-100';
+                        }
+
+                        const formattedOutput = `
+                            <div class="p-2 rounded-md font-bold text-center ${verdictColor}">${verdict}</div>
+                            <div class="mt-4 text-sm text-slate-700">${explanation.replace(/\*/g, '<br>• ')}</div>`;
+                        analysisOutput.innerHTML = formattedOutput;
+                    } else {
+                         throw new Error('A resposta da IA está vazia ou em um formato inesperado.');
+                    }
+                } catch (error) {
+                    analysisOutput.innerHTML = `<p class="text-red-600 font-semibold">Desculpe, não foi possível concluir a análise. A mensagem pode ter acionado nossos filtros de segurança. Tente novamente mais tarde ou reformule o texto.</p>`;
+                    console.error('Erro ao chamar a API Gemini:', error);
+                } finally {
+                    loader.classList.add('hidden');
+                    analyzeButton.disabled = false;
+                }
+            };
+            
+            analyzeButton.addEventListener('click', handleAnalysis);
+
+            const kpiAdocaoCtx = document.getElementById('kpiAdocao').getContext('2d');
+            new Chart(kpiAdocaoCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Usuários Ativos', 'Meta Restante'],
+                    datasets: [{
+                        data: [42500, 7500],
+                        backgroundColor: ['#2563eb', '#e2e8f0'],
+                        borderColor: ['#ffffff', '#ffffff'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw.toLocaleString('pt-BR')}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const kpiEngajamentoCtx = document.getElementById('kpiEngajamento').getContext('2d');
+            new Chart(kpiEngajamentoCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Taxa de Sucesso'],
+                    datasets: [{
+                        label: 'Taxa de Sucesso no Simulador (%)',
+                        data: [85],
+                        backgroundColor: ['#10b981'],
+                        borderRadius: 4,
+                        maxBarThickness: 50
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { beginAtZero: true, max: 100, grid: { display: false } },
+                        y: { grid: { display: false } }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+            
+            const kpiConfiancaCtx = document.getElementById('kpiConfianca').getContext('2d');
+            new Chart(kpiConfiancaCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Comunicação', 'Compras', 'Serviços Bancários', 'Serviços Públicos', 'Identificar Riscos'],
+                    datasets: [{
+                        label: 'Antes do App',
+                        data: [3, 2, 1.5, 2, 1],
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.2)',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#f59e0b'
+                    }, {
+                        label: 'Depois do App (Meta)',
+                        data: [4.5, 4, 4.2, 4.5, 4.8],
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#2563eb'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { display: true },
+                            suggestedMin: 0,
+                            suggestedMax: 5,
+                            pointLabels: {
+                                font: {
+                                    size: 10
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                           position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
+
